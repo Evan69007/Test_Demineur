@@ -1,10 +1,11 @@
 import random
 
-def placeRandomBombe(nbBombs, nbColumns, nbLines):
+def placeRandomBomb(nbBombs, nbColumns, nbLines, grid):
     for i in range(nbBombs):
         x = random.randint(0,nbColumns-1)
         y = random.randint(0,nbLines-1)
         grid[y][x] = 'X'
+    return (grid)
 
 def gridGenerator(n, m, char):
     array = [[char for column in range(n)] for line in range(m)]
@@ -15,14 +16,15 @@ def displayGrid(gridToDisplay):
         print("  ".join(str(cell) for cell in row))
         print("")
 
-def case(x, y):
+def case(x, y, playerGrid, grid):
     if x >= 0 and x < len(grid):
         if y >= 0 and y < len(grid[x]):
-            playerGrid[y][x] = grid[y][x]
+            playerGrid[x][y] = grid[x][y]
         else:
             print("Out of the grid! Play again")
     else:
         print("Out of the grid! Play again")
+    return (playerGrid)
 
 if __name__ == "__main__":
     columns = 10
@@ -30,7 +32,7 @@ if __name__ == "__main__":
     grid = gridGenerator(columns, lines, 0)
     playerGrid = gridGenerator(columns, lines, "-")
 
-    placeRandomBombe(1, columns, lines)
+    placeRandomBomb(1, columns, lines)
 
     while True:
         print("Enter coordinates to open a case")
